@@ -6,6 +6,8 @@ import freemarker.log.Logger;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import joke.ext.annoation.Id;
+import joke.ext.annoation.MyColumn;
 import org.apache.commons.lang.StringUtils;
 
 import javax.sql.DataSource;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.*;
@@ -65,11 +68,28 @@ public class DeveloperUtil {
             Template implTemplate = configure.getTemplate("ServiceImplTemplate.ftl");
             FileWriter implFileWriter = new FileWriter(implFile);
             model.put("tableName",tableName);
-            //实现类在 实现分页查询的时候，默认要带上查询条件，条件就是主键，外键（猜的）
-            List<String> queryConditions = new ArrayList<String>();
-            queryConditions.add("comment_id");
-            queryConditions.add("user_id");
-            model.put("queryConditions",queryConditions);
+            //实现类在 实现分页查询的时候，默认要带上查询条件，条件就是主键，外键（猜的）:以_id结尾的
+            /*List<String> queryConditions = new ArrayList<String>();*/
+            Map<String,String> queryConditionMap = new HashMap<String, String>();
+            for (Field field : fields) {
+                Id id = field.getAnnotation(Id.class);
+                if(id!=null){
+                    MyColumn myColumn = field.getAnnotation(MyColumn.class);
+                    String pkColumn = myColumn.columnName();
+                    model.put("pkColumn",pkColumn);
+                }
+                MyColumn myColumn = field.getAnnotation(MyColumn.class);
+                if(myColumn!=null){
+                    String dbColumn = myColumn.columnName();
+                    if(dbColumn.contains("_id")){
+                        queryConditionMap.put(myColumn.columnName(),upperCaseFirstChar(convertDBNameToJavaName(dbColumn)));
+                    }
+                }
+
+            }
+            /*queryConditionMap.put("comment_id", "CommentId");
+            queryConditionMap.put("user_id", "UserId");*/
+            model.put("queryConditionMap",queryConditionMap);
             implTemplate.process(model,implFileWriter);
             implFileWriter.close();
         } catch (ClassNotFoundException e) {
@@ -254,9 +274,10 @@ public class DeveloperUtil {
             slice = upperCaseFirstChar(slice);
             property += slice;
         }
-
         return property;
     }
+
+
 
     private String upperCaseFirstChar(String slice) {
         if (slice == null || slice.trim().length() == 0) {

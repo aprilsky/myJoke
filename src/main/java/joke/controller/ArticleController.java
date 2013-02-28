@@ -1,8 +1,10 @@
 package joke.controller;
 
 import joke.domain.Article;
+import joke.domain.Comments;
 import joke.domain.User;
 import joke.service.ArticleService;
+import joke.service.CommentsService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import utils.Constant;
 import utils.Page;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +30,7 @@ import java.util.List;
 public class ArticleController extends BaseController {
     @Autowired
     ArticleService articleService;
+
 
     @RequestMapping("/toAddArticle")
     public String toAddArticle() {
@@ -92,14 +96,9 @@ public class ArticleController extends BaseController {
         return "index";
     }
 
-    @RequestMapping("/listArticleComment")
-    public String listArticleComment(ModelMap modelMap,HttpServletRequest request) {
-        String articleId = request.getParameter("articleId");
-        Assert.notNull(articleId,"articleId is not null");
-        //通过ID 查询评论
 
-        return "index";
-    }
+
+
 
 
 

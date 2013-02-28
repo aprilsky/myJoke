@@ -7,13 +7,17 @@
             //设置默认值并用逗号隔开
             var defaults = {
                 pageNo : 1,
-                totalPages : 10
+                totalPages : 0
             };
             var options =  $.extend(defaults, options);
             //遍历匹配元素的集合
             return this.each(function() {
                 var pageNO = options.pageNo;
                 var totalPages = options.totalPages;
+                if(totalPages==0){
+                    $(this).html('暂无数据');
+                    return ;
+                }
                 //在这里编写相应代码进行处理 
                 var startPoint = 1;
                 var endPoint = 9;

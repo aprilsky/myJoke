@@ -34,6 +34,20 @@ public class TestUserService extends AbstractTransactionalJUnit4SpringContextTes
         userServiceAPI.saveOrUpdateUser(user);
     }
 
+
+    @Test
+    public void testWord(){
+        String str = "comment_id";
+        //首字母大写;
+        String str1 = str.substring(0,1).toUpperCase()+str.substring(1);
+        System.out.println(str1);
+        String[] arr = str1.split("_");
+        for (String s : arr) {
+            System.out.println();
+        }
+    }
+
+
     @Test
     @Rollback(false)
     public void testSaveOrUpdateArticle(){

@@ -18,8 +18,8 @@
                 $('#people_comment'+id).hide(_time);
             }
             //加载所有的评论，及评论窗口
-            var comment_url = '${ctx!}/article/listArticleComment.htm?articleId='+id;
-            $('#people_comment'+id).load();
+            var comment_url = '${ctx!}/comment/list.htm?articleId='+id;
+            $('#people_comment'+id).load(comment_url);
         })
     })
 
