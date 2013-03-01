@@ -12,7 +12,7 @@ import java.util.Date;
 public class TimeTest {
     public static void main(String[] args) {
         int syncHour = 24;
-        String uploadDate = "2013-03-01 16:02:43";
+        String uploadDate = "2013-03-01 16:04:43";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date theDate =sdf.parse(uploadDate);
