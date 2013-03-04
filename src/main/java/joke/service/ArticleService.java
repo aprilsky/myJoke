@@ -4,6 +4,7 @@ package joke.service;
 import joke.domain.Article;
 import utils.Page;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -17,4 +18,6 @@ public interface ArticleService {
     List<Article> listArticleForApprove(long userId);
 
     Page<Article> listArticleForPage(Page<Article> articlePage, Article article);
+
+    Article loadArticle(BigInteger articleId);
 }

@@ -42,7 +42,8 @@
     <div class="block-content">
         <ul style="list-style: none">
             <li  style="font-size: 20px;">
-                ${article.articleTitle!}
+               <#-- ${article.articleTitle!}-->
+                   <img alt="木哈哈" src="http://www.bothbox.com/upload/img/201211/11/u_5.jpg">
             </li>
             <#assign contentLength = (article.articleContent!)?length>
             <#if contentLength gt 500 >
@@ -53,7 +54,7 @@
             <#else>
                 <div class="content">${article.articleContent!}</div>
             </#if>
-            <div style="margin: 2px;font-size: 12px;color: gray"><a class="comment_a" data-id="${article.articleId!}" href="javascript:;">${article.commentCount!}人评论</a></div>
+            <div style="margin: 2px;font-size: 12px;color: gray"><a class="comment_a" data-id="${article.articleId!}" href="javascript:;"><span id="art_count_${article.articleId!}">${article.commentCount!}</span>人评论</a></div>
             <div id="people_comment${article.articleId!}" style="display: none;"></div>
         </ul>
     </div>

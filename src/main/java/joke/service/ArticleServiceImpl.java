@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import utils.Constant;
 import utils.Page;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -47,5 +48,14 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
         page.setRows(list);
         page.setTotal(count);
         return page;
+    }
+
+    @Override
+    public Article loadArticle(BigInteger articleId) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("select * from t_article where article_id = ? ");
+        Object[] args = {articleId};
+        List<Article> articles = jdbcTemplate.query(builder.toString(), args, new BeanPropertyRowMapper<Article>(Article.class));
+        return articles.get(0);
     }
 }

@@ -1,5 +1,6 @@
 package joke.controller;
 
+import joke.domain.Article;
 import joke.domain.Comments;
 import joke.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import utils.Page;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 
 /**
@@ -40,9 +43,15 @@ public class CommentController extends BaseController{
     }
 
     @RequestMapping("/save")
-    public String saveComment(Comments comments,ModelMap modelMap){
-        System.out.println(comments);
+    @ResponseBody
+    public String saveComment(Comments comments,ModelMap modelMap,HttpServletResponse response){
         commentsService.saveOrUpdateComments(comments);
-        return index(modelMap,1);
+        if(comments.getArticleId()!=null){
+            Article article = articleService.loadArticle(comments.getArticleId());
+            article.setCommentCount(article.getCommentCount()+1);
+            articleService.saveOrUpdateArticle(article);
+        }
+        sendSuccessMessage(response,null);
+        return null;
     }
 }

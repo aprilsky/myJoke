@@ -73,7 +73,9 @@ public class BaseController {
     public void sendSuccessMessage(HttpServletResponse response,  String message) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put(SUCCESS, true);
-        result.put(MSG, message);
+        if(message==null){
+            result.put(MSG, message);
+        }
         HtmlUtil.writerJson(response, result);
     }
 
