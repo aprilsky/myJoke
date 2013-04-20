@@ -31,7 +31,6 @@
         parent_content.next(".content").css("display","block");
     }
 
-
 </script>
 <style type="text/css">
     .content{
@@ -42,8 +41,7 @@
     <div class="block-content">
         <ul style="list-style: none">
             <li  style="font-size: 20px;">
-               <#-- ${article.articleTitle!}-->
-                   <img alt="木哈哈" src="http://www.bothbox.com/upload/img/201211/11/u_5.jpg">
+               ${article.articleTitle!}
             </li>
             <#assign contentLength = (article.articleContent!)?length>
             <#if contentLength gt 500 >

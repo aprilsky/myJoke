@@ -18,7 +18,7 @@
 
 </script>
 <div class="block-content" style="font-size: 12px;">
-    <form action="${ctx!}/managerArticle/saveArticle.htm" id="new_article" method="post" >
+    <form action="${ctx!}/article/saveArticle.htm" id="new_article" method="post" >
         <textarea id="textarea" name="articleContent" style="height:176px;width:655px;">分享我的真实糗事</textarea>
 
         <div id="Num"></div>

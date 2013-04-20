@@ -36,7 +36,6 @@
     <title>${highlight}</title>
 </head>
 <body>
-<div class="main">
     <div class="header">
         <div style="float: right;padding: 10px 150px 0 0;border-top:none;font-size: 18px;width: 120px;">
                 <#if (user.userName)?? && (user.userName)!=''>${user.userName}<a href="${ctx!}/userInfo/loginOut.htm">退出</a>
@@ -50,21 +49,12 @@
         <div class="menu">
             <ul>
                 <li class="menuout"><a id="hot" class="highlight" href="${ctx!}/article/listHotArticle.htm">热门</a></li>
-                <#--<li class="menuout" onmouseover="this.className='menuover'" onmouseout="this.className='menuout'">
-                    <a href="${ctx!}/managerArticle/listEssenceArticle.htm" id="essence" class="submenutitle">精华</a>
-                    <a href="#" class="submenu">24小时内</a>
-                    <a href="#" class="submenu">7天内</a>
-                    <a href="#" class="submenu">30天内</a>
-                </li>
-                <li class="menuout"><a href="#">真相</a></li>
-                <li class="menuout"><a href="#">穿越</a></li>-->
                 <li class="menuout"><a id="approve" class="approve" href="${ctx!}/article/approveArticle.htm">审贴</a></li>
                 <li class="menuout"><a id="contribute" href="${ctx!}/article/toAddArticle.htm">投稿</a></li>
             </ul>
         </div>
     </div>
     <#nested>
-</div>
 </body>
 </html>
 

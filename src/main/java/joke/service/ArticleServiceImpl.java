@@ -26,8 +26,9 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
     public List<Article> listArticleForApprove(long userId) {
         StringBuilder builder = new StringBuilder();
         builder.append("select * from t_article where article_status = ? ");
-        builder.append(" and article_author != ?");
-        Object[] args = {Constant.article_status_wait_approve,userId};
+       /* builder.append(" and article_author != ?");
+        Object[] args = {Constant.article_status_wait_approve,userId};*/
+        Object[] args = {Constant.article_status_wait_approve};
         return jdbcTemplate.query(builder.toString(),args,new BeanPropertyRowMapper<Article>(Article.class));
     }
 
