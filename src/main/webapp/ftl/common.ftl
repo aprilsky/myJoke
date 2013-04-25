@@ -19,42 +19,62 @@
     </#if>
 </#function>
 
-<#macro pageFrame highlight="hot">
+<#macro pageFrame highlight="index">
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="${ctx!}/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx!}/css/style.css"/>
     <script type="text/javascript" src="${ctx!}/js/jquery.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('a').each(function (index) {
-                $(this).removeClass("highlight");
+            $('#navigation li').each(function (index) {
+                $(this).removeClass("selected");
             });
-            $('#${highlight}').addClass("highlight");
+            $('#${highlight}').addClass("selected");
         })
     </script>
     <title>${highlight}</title>
 </head>
 <body>
-    <div class="header">
-        <div style="float: right;padding: 10px 150px 0 0;border-top:none;font-size: 18px;width: 120px;">
-                <#if (user.userName)?? && (user.userName)!=''>${user.userName}<a href="${ctx!}/userInfo/loginOut.htm">退出</a>
+    <div id="header">
+        <div>
+            <div id="logo">
+                <a href="index.html"><img src="${ctx!}/images/logo.png" alt="LOGO"></a>
+            </div>
+            <ul id="navigation">
+                <li id="index" class="selected">
+                    <a href="${ctx!}/index.html">首页</a>
+                </li>
+                <li id="approve">
+                    <a href="${ctx!}/article/approveArticle.htm">审核</a>
+                </li>
+                <li id="contribute">
+                    <a href="${ctx!}/article/toAddArticle.htm">发表</a>
+                </li>
+            </ul>
+            <div style="float: right;padding: 15px;">
+                <#if (user.userName)?? && (user.userName)!=''>
+                    <a href="#">${user.userName}</a>
+                    <a style="margin-left: 10px;" href="${ctx!}/userInfo/loginOut.htm">退出</a>
                 <#else>
                     <a href="${ctx!}/userInfo/toLogin.htm" >登录</a>
-                    <a href="${ctx!}/userInfo/toRegister.htm" >注册</a>
+                    <a style="margin-left: 10px;" href="${ctx!}/userInfo/toRegister.htm" >注册</a>
                 </#if>
+            </div>
         </div>
     </div>
-    <div class="menu-bar">
-        <div class="menu">
-            <ul>
-                <li class="menuout"><a id="hot" class="highlight" href="${ctx!}/article/listHotArticle.htm">热门</a></li>
-                <li class="menuout"><a id="approve" class="approve" href="${ctx!}/article/approveArticle.htm">审贴</a></li>
-                <li class="menuout"><a id="contribute" href="${ctx!}/article/toAddArticle.htm">投稿</a></li>
-            </ul>
+    <div id="contents">
+        <div id="blog">
+            <#nested>
         </div>
     </div>
-    <#nested>
+    <div id="footer">
+        <div class="footer">
+            <p>
+                &copy; Copyright &copy; 2013.Company name All rights reserved.
+            </p>
+        </div>
+    </div>
 </body>
 </html>
 

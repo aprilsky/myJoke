@@ -10,13 +10,10 @@
         })
     })
 </script>
-<div class="block-content" style="font-size: 12px;">
     <input type="hidden" id="articleId" value="${article.articleId!}">
     <div title="${article.articleTitle!}">${article.articleTitle!}</br>${article.articleContent!}</div>
     <div style="float: right;margin: 3px;">
         <a href="javascript:void(0)" class="status passed" data-id="passed" id="passed" style="color: blue">通过</a>
         <a href="javascript:void(0)" class="status filed" data-id="filed" id="filed" style="color: red;">拒绝</a>
     </div>
-</div>
-
 </@p.pageFrame>
