@@ -41,12 +41,7 @@ public class DateUtil
 	{
 	}
 
-	/**
-	 * @author Pablo
-	 * Descrption:ȡ�õ�ǰ����getgetg get Date format Example：2008-05-15
-	 * @return String
-	 * @throws Exception
-	 */
+
 	public static String getDateLong(Date date)
 	{
 		String nowDate = "";
@@ -62,12 +57,7 @@ public class DateUtil
 			return "";
 		}
 	}
-	/**
-	 * @author Pablo
-	 * Descrption:ȡ�õ�ǰ����getgetg get Date format Example：2008年-05月-15日
-	 * @return String
-	 * @throws Exception
-	 */
+
 	public static String getDateLongCn(Date date)
 	{
 		String nowDate = "";
@@ -85,12 +75,7 @@ public class DateUtil
 	}
 	
 	
-	/**
-	 * @author vowo
-	 * Descrption:ȡ�õ�ǰ����getgetg get Date format Example：05月-15日
-	 * @return String
-	 * @throws Exception
-	 */
+
 	public static String getDateMD(Date date)
 	{
 		String nowDate = "";
@@ -193,11 +178,7 @@ public class DateUtil
 		}
 	}
 
-	/**
-	 * Descrption:取得当前日期时间,格式为:YYYYMMDDHHMISS
-	 * @return String
-	 * @throws Exception
-	 */
+
 	public static String getNowLongTime() throws Exception
 	{
 		String nowTime = "";
@@ -214,11 +195,7 @@ public class DateUtil
 		}
 	}
 
-	/**
-	 * Descrption:取得当前日期,格式为:YYYYMMDD
-	 * @return String
-	 * @throws Exception
-	 */
+
 	public static String getNowShortDate() throws Exception
 	{
 		String nowDate = "";
@@ -235,11 +212,7 @@ public class DateUtil
 		}
 	}
 
-	/**
-	 * Descrption:取得当前日期,格式为:YYYY-MM-DD
-	 * @return String
-	 * @throws Exception
-	 */
+
 	public static String getNowFormateDate() throws Exception
 	{
 		String nowDate = "";

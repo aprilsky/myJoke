@@ -2,6 +2,9 @@ import joke.domain.Article;
 import joke.domain.User;
 import joke.service.ArticleService;
 import joke.service.UserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -21,6 +24,16 @@ public class TestUserService extends AbstractTransactionalJUnit4SpringContextTes
 
     @Autowired
     ArticleService articleService;
+
+    static Logger logger = Logger.getLogger(TestUserService.class.getName());
+
+
+    @Test
+    public void testLog4j(){
+        System.out.println(logger.isInfoEnabled());
+        logger.info("info not enable!");
+        logger.warn("warn is enable!");
+    }
 
     @Test
     @Rollback(false)
