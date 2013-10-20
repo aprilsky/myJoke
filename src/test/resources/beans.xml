@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="naiveWaiter" class="spring.advice.NaiveWaiter"/>
+    <bean id="aroundAdvice" class="spring.advice.GreetingInterceptor"/>
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="targetName" value="naiveWaiter"/>
+        <property name="interceptorNames" value="aroundAdvice"/>
+        <property name="interfaces" value="spring.advice.Monitorable"/>
+    </bean>
+</beans>
