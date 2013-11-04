@@ -30,15 +30,17 @@ public class BaseController {
     @Autowired
     ArticleService articleService;
 
+    protected HttpServletRequest request;
+
     @ModelAttribute("ctx")
     public String getCtx() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return request.getContextPath();
     }
 
 
     public User getUserForSession(){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Object obj = request.getSession().getAttribute(Constant.session_user_key);
         if(obj == null){
             return null;
@@ -48,19 +50,32 @@ public class BaseController {
     }
 
     /**
-     * 首页
+     * 首页 如果没有登录，就跳到index.ftl
+     *     如果已经登录就跳转到 最新心得页面
      * @param modelMap
      * @return
      */
     public String index(ModelMap modelMap,Integer pageNo) {
-        //根据评论数排序
+        /*//根据评论数排序
         //根据评论数排序
         Page<Article> articlePage = new Page<Article>();
         articlePage.setSortName("comment_count");
         articlePage.setPageNo(pageNo==null?0:pageNo);
         articlePage= articleService.listArticleForPage(articlePage,new Article());
-        modelMap.put("articlePage",articlePage);
+        modelMap.put("articlePage",articlePage);*/
+        User user = getUserForSession();
+        if(user!=null){
+            return alreadyLoginIndex();
+        }
         return "index";
+    }
+
+    /**
+     * 会员的首页
+     * @return
+     */
+    private String alreadyLoginIndex() {
+        return null;
     }
 
     /**

@@ -44,6 +44,12 @@ public class Article {
      */
     @MyColumn(columnName = "article_author")
     private Long articleAuthor;
+
+    /**
+     * 作者
+     */
+    @MyColumn(columnName = "user_name")
+    private Long userName;
     /**
      * 提交时间
      */
@@ -146,5 +152,15 @@ public class Article {
         this.commentCount = commentCount;
     }
 
+    public Long getUserName() {
+        return userName;
+    }
 
+    public void setUserName(Long userName) {
+        this.userName = userName;
+    }
+
+    public void setArticleAuthor(Long articleAuthor) {
+        this.articleAuthor = articleAuthor;
+    }
 }

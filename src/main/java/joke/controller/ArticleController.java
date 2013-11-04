@@ -9,15 +9,14 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import utils.Constant;
 import utils.Page;
+import utils.StringUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +29,8 @@ import java.util.List;
 public class ArticleController extends BaseController {
     @Autowired
     ArticleService articleService;
+    @Autowired
+    CommentsService commentsService;
 
 
     @RequestMapping("/toAddArticle")
@@ -49,7 +50,7 @@ public class ArticleController extends BaseController {
         article.setArticleStatus(Constant.article_status_wait_approve);
         article.setSubmitTime(new Date());
         articleService.saveOrUpdateArticle(article);
-        return listHotArticle(modelMap,null);
+        return listArticle(modelMap, null);
     }
 
     @RequestMapping("/approveArticle")
@@ -83,24 +84,64 @@ public class ArticleController extends BaseController {
 
 
 
-    @RequestMapping("/listHotArticle")
-    public String listHotArticle(ModelMap modelMap,Integer pageNo) {
+    @RequestMapping("/listArticle")
+    public String listArticle(ModelMap modelMap,Integer pageNo) {
+        String articleType = request.getParameter("articleType");
         //根据评论数排序
         Page<Article> articlePage = new Page<Article>();
-        articlePage.setSortName("comment_count");
+        articlePage.setSortName("submit_time");
+        Article article = new Article();
+        article.setArticleType(articleType);
         if(pageNo!=null){
             articlePage.setPageNo(pageNo);
         }
-        articlePage= articleService.listArticleForPage(articlePage,new Article());
+        articlePage= articleService.listArticleForPage(articlePage,article);
         modelMap.put("articlePage",articlePage);
-        return "index";
+        if ("tips".equals(articleType)){
+            return "listTips";
+        }
+        return "listArticle";
     }
 
+    @RequestMapping("/articleDetail")
+    public String articleDetail(ModelMap modelMap){
+        BigInteger articleId = BigInteger.valueOf(Integer.parseInt(request.getParameter("articleId")));
+        Article article = articleService.loadArticle(articleId);
+        request.setAttribute("article",article);
+        List<Comments> list = commentsService.listCommentsByArticleId(articleId);
+        int replySize = list.size();
+        //循环出一级回应
+        List<Comments> commentsList = getCommentsLevel(list);
+        request.setAttribute("replySize",replySize);
+        request.setAttribute("commentsList",commentsList);
+        return "articleDetail";
+    }
 
+    private List<Comments> getCommentsLevel(List<Comments> list) {
+        List<Comments> commentsList = new ArrayList<Comments>();
+        for (Comments comments : list) {
+            if(comments.getParentId()==null||comments.getParentId().toString().equals("0")){
+                commentsList.add(comments);
+            }else{
+                addChildToParent(comments,commentsList);
+            }
+        }
+        return commentsList;
+    }
 
-
-
-
+    private void addChildToParent(Comments comments, List<Comments> commentsList) {
+        for (Comments par : commentsList) {
+            if(comments.getParentId()==par.getCommentId()){
+                if(par.getChildren()==null){
+                    List<Comments> children = new ArrayList<Comments>();
+                    children.add(comments);
+                    par.setChildren(children);
+                }else{
+                    par.getChildren().add(comments);
+                }
+            }
+        }
+    }
 
 
 }

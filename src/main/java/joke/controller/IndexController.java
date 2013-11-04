@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Author: caoxiao
  * @Date: 12-11-22 下午7:25
+ * 首页
  */
 @Controller
-public class IndexAction extends BaseController{
+public class IndexController extends BaseController{
     @RequestMapping("index")
     public String index(ModelMap modelMap,HttpServletRequest request,Integer pageNo){
         return super.index(modelMap,pageNo);

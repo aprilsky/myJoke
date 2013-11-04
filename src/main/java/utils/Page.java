@@ -43,7 +43,7 @@ public class Page<T> {
     /**
      * 排序方向
      */
-    private String sortOrder;
+    private String sortOrder = "desc";
 
     //-- 返回结果 --//
     protected List<T> rows = new ArrayList<T>();

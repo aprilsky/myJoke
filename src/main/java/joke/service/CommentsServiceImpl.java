@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +68,16 @@ public Page<Comments> listCommentsForPage(Page<Comments> page, Comments comments
     page.setRows(list);
     return page;
 }
+
+    public List<Comments> listCommentsByArticleId(BigInteger articleId) {
+        Page<Comments> page = new Page<Comments>();
+        page.setAutoCount(false);
+        page.setAutoPaging(false);
+        page.setSortName("comment_date");
+        Comments comments = new Comments();
+        comments.setArticleId(articleId);
+        Page<Comments> pages = listCommentsForPage(page,comments);
+        return pages.getRows();
+    }
 
 }

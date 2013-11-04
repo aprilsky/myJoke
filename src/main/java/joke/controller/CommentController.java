@@ -14,6 +14,7 @@ import utils.Page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
+import java.util.Date;
 
 /**
  * @Author: caoxiao
@@ -45,6 +46,9 @@ public class CommentController extends BaseController{
     @RequestMapping("/save")
     @ResponseBody
     public String saveComment(Comments comments,ModelMap modelMap,HttpServletResponse response){
+
+        comments.setUserId(getUserForSession().getUserId());
+        comments.setCommentDate(new Date());
         commentsService.saveOrUpdateComments(comments);
         if(comments.getArticleId()!=null){
             Article article = articleService.loadArticle(comments.getArticleId());

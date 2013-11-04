@@ -17,12 +17,10 @@ import java.util.List;
 @Service
 @Transactional
 public class ArticleServiceImpl extends BaseService implements ArticleService {
-    @Override
     public int saveOrUpdateArticle(Article article) {
         return saveOrUpdateEntity(article);
     }
 
-    @Override
     public List<Article> listArticleForApprove(long userId) {
         StringBuilder builder = new StringBuilder();
         builder.append("select * from t_article where article_status = ? ");
@@ -32,11 +30,10 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
         return jdbcTemplate.query(builder.toString(),args,new BeanPropertyRowMapper<Article>(Article.class));
     }
 
-    @Override
     public Page<Article> listArticleForPage(Page<Article> page, Article article) {
         StringBuilder builder = new StringBuilder();
         builder.append("select * from t_article where article_status = ? ");
-        builder.append(" order by comment_count desc ");
+        builder.append(" order by submit_time desc ");
         if (page.isAutoPaging()) {
             builder.append("limit ");
             builder.append(page.getStartRow());
@@ -51,7 +48,6 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
         return page;
     }
 
-    @Override
     public Article loadArticle(BigInteger articleId) {
         StringBuilder builder = new StringBuilder();
         builder.append("select * from t_article where article_id = ? ");

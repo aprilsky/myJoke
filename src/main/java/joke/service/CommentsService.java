@@ -4,6 +4,7 @@ package joke.service;
 import joke.domain.Comments;
 import utils.Page;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -18,4 +19,5 @@ public interface CommentsService {
 
     Page<Comments> listCommentsForPage(Page<Comments> commentsPage, Comments comments);
 
+    List<Comments> listCommentsByArticleId(BigInteger articleId);
 }

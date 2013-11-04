@@ -1,4 +1,4 @@
-<#import "common.ftl" as p>
+<#import "common_header.ftl" as p>
 <@p.pageFrame "contribute">
 <script type="text/javascript">
     var maxLength = 500;

@@ -2,6 +2,7 @@ package joke.domain;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 import joke.ext.annoation.Id;
 import joke.ext.annoation.MyColumn;
@@ -26,12 +27,19 @@ public class Comments {
      */
     @MyColumn(columnName = "article_id")
     private BigInteger articleId;
+
+    /**
+     *
+     *
+     */
+    @MyColumn(columnName = "user_name")
+    private BigInteger userName;
     /**
      *
      *
      */
     @MyColumn(columnName = "user_id")
-    private BigInteger userId;
+    private Long userId;
     /**
      *
      *
@@ -54,8 +62,20 @@ public class Comments {
      *
      *
      */
-    @MyColumn(columnName = "comment_parent")
-    private BigInteger commentParent;
+    @MyColumn(columnName = "parent_id")
+    private BigInteger parentId;
+
+    public List<Comments> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Comments> children) {
+        this.children = children;
+    }
+
+    private List<Comments> children;
+
+
 
 
     public BigInteger getCommentId() {
@@ -74,11 +94,11 @@ public class Comments {
         this.articleId = articleId;
     }
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return this.userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -106,13 +126,19 @@ public class Comments {
         this.commentStatus = commentStatus;
     }
 
-    public BigInteger getCommentParent() {
-        return this.commentParent;
+    public BigInteger getParentId() {
+        return this.parentId;
     }
 
-    public void setCommentParent(BigInteger commentParent) {
-        this.commentParent = commentParent;
+    public void setParentId(BigInteger parentId) {
+        this.parentId = parentId;
     }
 
+    public BigInteger getUserName() {
+        return userName;
+    }
 
+    public void setUserName(BigInteger userName) {
+        this.userName = userName;
+    }
 }

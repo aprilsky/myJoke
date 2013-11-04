@@ -56,8 +56,9 @@ public class UserInfoController extends BaseController {
         //登陆成功，保存session
         request.getSession().setAttribute(Constant.session_user_key,user);
         user.setUserStatus(Constant.online);
+        //更新用户状态
         userService.saveOrUpdateUser(user);
-        return "redirect:/index.htm";
+        return index(model,1);
     }
 
     /**

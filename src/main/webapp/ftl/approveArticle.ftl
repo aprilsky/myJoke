@@ -1,4 +1,4 @@
-<#import "common.ftl" as p>
+<#import "common_header.ftl" as p>
 <@p.pageFrame "approve">
 <script type="text/javascript">
     $(function () {
